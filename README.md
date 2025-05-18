@@ -26,7 +26,59 @@ This commands includes
 • Other IP Commands e.g. show ip route etc.
 <BR>
 
+## Program
+
+ping
+
+```
+import time
+from ping3 import ping
+
+def ping_simulation(host, count=4) -> None:
+    print(f"Pinging {host} with {count} packets:")
+    for i in range(count):
+        delay = ping(host, timeout=1)
+        if delay is None:
+            print(f"Request timed out.")
+        else:
+            print(f"Reply from {host}: time={round(delay * 1000, 2)} ms")
+        time.sleep(1)
+ping_simulation('google.com')
+
+```
+
+traceroute
+
+```
+import subprocess
+import platform
+
+def traceroute_simulation(host):
+    system = platform.system()
+
+    if system == "Windows":
+        cmd = ["tracert", host]
+    else:
+        cmd = ["traceroute", host]
+
+    try:
+        result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        print(result.stdout)
+    except Exception as e:
+        print(f"Error: {e}")
+
+# Run the function
+traceroute_simulation('google.com')
+
+```
+
 ## Output
+
+![image](https://github.com/user-attachments/assets/5e056e80-35c2-4192-94b8-8c1292ffecee)
+
+![image](https://github.com/user-attachments/assets/a941728a-b886-47f6-a5e5-1a2a1f552ba7)
+
+
 
 ## Result
 Thus Execution of Network commands Performed 
